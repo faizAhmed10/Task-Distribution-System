@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AxiosError } from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
@@ -10,7 +11,8 @@ const authApi = {
         localStorage.setItem('token', response.data.token);
       }
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       console.error('Login API error:', error);
       throw error;
     }
@@ -23,7 +25,8 @@ const authApi = {
         localStorage.setItem('token', response.data.token);
       }
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       console.error('Setup API error:', error);
       throw error;
     }
@@ -38,7 +41,8 @@ const authApi = {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       console.error('GetMe API error:', error);
       throw error;
     }

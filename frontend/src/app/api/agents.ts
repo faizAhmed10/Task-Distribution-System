@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AxiosError } from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
@@ -23,7 +24,8 @@ const agentsApi = {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       throw error.response?.data?.error || 'Failed to fetch agents';
     }
   },
@@ -37,7 +39,8 @@ const agentsApi = {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       throw error.response?.data?.error || 'Failed to fetch agent';
     }
   },
@@ -52,7 +55,8 @@ const agentsApi = {
       });
       console.log(response.data)
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       throw error.response?.data?.error || 'Failed to create agent';
     }
   },
@@ -66,7 +70,8 @@ const agentsApi = {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       throw error.response?.data?.error || 'Failed to update agent';
     }
   },
@@ -80,7 +85,8 @@ const agentsApi = {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       throw error.response?.data?.error || 'Failed to delete agent';
     }
   },

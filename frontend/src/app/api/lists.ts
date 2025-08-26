@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { AxiosError } from 'axios';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 interface ListItem {
@@ -54,7 +54,8 @@ const listsApi = {
       console.log('Upload response:', response.data);
       
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       console.error('API Error:', error);
       if (error.response) {
         console.error('Response data:', error.response.data);
@@ -78,7 +79,8 @@ const listsApi = {
       );
 
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       console.error('Error assigning task:', error);
       throw error.response?.data?.error || 'Failed to assign task to agent';
     }
@@ -94,7 +96,8 @@ const listsApi = {
       });
 
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       console.error('Error fetching agent list items:', error);
       throw error.response?.data?.error || 'Failed to fetch agent list items';
     }
@@ -109,7 +112,8 @@ const listsApi = {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       throw error.response?.data?.error || 'Failed to fetch lists';
     }
   },
@@ -123,7 +127,8 @@ const listsApi = {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       throw error.response?.data?.error || 'Failed to fetch list';
     }
   },
@@ -137,7 +142,8 @@ const listsApi = {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as AxiosError<{ error: string }>;
       console.error('Error deleting batch:', error);
       throw error.response?.data?.error || 'Failed to delete batch';
     }
