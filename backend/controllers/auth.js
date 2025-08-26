@@ -21,7 +21,7 @@ exports.login = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({
         success: false,
-        error: 'Invalid credentials',
+        error: 'Admin with these credentials does not exist',
       });
     }
 

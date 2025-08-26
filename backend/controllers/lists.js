@@ -15,7 +15,7 @@ exports.uploadList = async (req, res, next) => {
       });
     }
 
-    // Check file extension
+    // Check file extension 
     const fileExt = path.extname(req.file.originalname).toLowerCase();
     if (![".csv", ".xlsx", ".xls"].includes(fileExt)) {
       return res.status(400).json({
@@ -94,8 +94,11 @@ exports.uploadList = async (req, res, next) => {
 
     // Step 1: Pre-calculate quotas
     const quotas = Array(agentCount).fill(itemsPerAgent);
-    for (let i = 0; i < remainder; i++) {
-      quotas[i] += 1;
+    if(remainder){
+      for (let i = 0; i < remainder; i++) {
+        quotas[i] += 1;
+      }
+
     }
 
     console.log("Quotas per agent:", quotas);
